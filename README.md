@@ -210,3 +210,5 @@ gulp.task('default',['webserver','watch']);
 扩展资料：
 [Gulp API docs](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
 [gulp-cheatsheet](https://github.com/osscafe/gulp-cheatsheet)
+
+原文地址：[Gulp构建前端自动化工作流之：入门介绍及LiveReload的使用](http://www.bluesdream.com/blog/gulp-frontend-automation-introduction-and-livereload.html)
