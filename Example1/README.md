@@ -133,7 +133,7 @@ taks：执行的任务；
 **静态服务器（ [gulp-webserver](http://www.example.com) ）**
 **网页自动刷新（ [gulp-livereload](https://www.npmjs.com/package/gulp-livereload) ）**
 
-`npm instal gulp-livereload gulp-webserver --save-dev`
+`npm install gulp-livereload gulp-webserver --save-dev`
 
 #### 5. Gulp任务配置（Task Configuration）
 
