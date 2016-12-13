@@ -71,7 +71,7 @@ gulp.task('html', function() {
 3. 然后直接在命令行中输入`gem install sass`按回车键确认，等待一段时间就会提示你sass安装成功。
 
 > 注：
-由于近期墙的比较严重，外加（上海）电信限制了外网访问速度。如果安装失败，请使用淘宝的Ruby镜像。具体操作方法请参考[淘宝RubyGems镜像安装 sass](http://www.w3cplus.com/sassguide/install.html)。
+> 由于近期墙的比较严重，外加（上海）电信限制了外网访问速度。如果安装失败，请使用淘宝的Ruby镜像。具体操作方法请参考[淘宝RubyGems镜像安装 sass](http://www.w3cplus.com/sassguide/install.html)。
 
 安装命令：
 `npm install gulp-ruby-sass --save-dev`
@@ -286,7 +286,7 @@ gulp.task('images', function(){
 此时我们再去 `dist/images` 文件夹，查看每个图片的最后修改日期，你就会发现只针对你刚才修改过的图片（文件）行了处理，而那些之前已经处理过的图片则没有再进行操作。
 
 > 注：
-无论是 gulp-changed 还是下文中提到的 gulp-cache ，对 sass 文件无效，始终会对所有匹配文件进行操作。
+> 无论是 gulp-changed 还是下文中提到的 gulp-cache ，对 sass 文件无效，始终会对所有匹配文件进行操作。
 
 ##### 3.4 文件合并([gulp-concat](https://www.npmjs.com/package/gulp-concat))：
 比如我们有多个JS库，jquery.min.js、bootstrap.min.js、angular.min.js。此时可以通过合并，减少网络请求。
@@ -471,30 +471,29 @@ gulp.task('clean', function (done) {
 
 ### 5. 匹配规则（Match Files）
 
-Gulp使用 [node-glob](https://github.com/isaacs/node-glob) 模块，借助 [minimatch](https://github.com/isaacs/minimatch) 库，将glob表达式(glob expressions)转换成JavaScript正则表达式(JavaScript RegExp) ，从而实现文件匹配功能。我们所看到的`**`和`*`都是其所提供的语法：
-
-`*` 匹配文件路径中的0个或多个字符，但不会匹配路径分隔符，除非路径分隔符出现在末尾。
-`**` 匹配路径中的0个或多个目录及其子目录，需要单独出现，即它左右不能有其他东西了。如果出现在末尾，也能匹配文件。
-`?` 匹配文件路径中的一个字符(不会匹配路径分隔符)。
-`[...]` 匹配方括号中出现的字符中的任意一个，当方括号中第一个字符为`^`或`!`时，则表示不匹配方括号中出现的其他字符中的任意一个。
-`!(pattern|pattern|pattern)` 匹配任何与括号中给定的任一参数一致的都不匹配的。
-`?(pattern|pattern|pattern)` 匹配括号中给定的任一参数0次或1次。
-`+(pattern|pattern|pattern)` 匹配括号中给定的任一参数至少1次。
-`*(a|b|c)` 匹配括号中给定的任一参数0次或多次。
+Gulp使用 [node-glob](https://github.com/isaacs/node-glob) 模块，借助 [minimatch](https://github.com/isaacs/minimatch) 库，将glob表达式(glob expressions)转换成JavaScript正则表达式(JavaScript RegExp) ，从而实现文件匹配功能。我们所看到的`**`和`*`都是其所提供的语法：  
+`*` 匹配文件路径中的0个或多个字符，但不会匹配路径分隔符，除非路径分隔符出现在末尾。  
+`**` 匹配路径中的0个或多个目录及其子目录，需要单独出现，即它左右不能有其他东西了。如果出现在末尾，也能匹配文件。  
+`?` 匹配文件路径中的一个字符(不会匹配路径分隔符)。  
+`[...]` 匹配方括号中出现的字符中的任意一个，当方括号中第一个字符为`^`或`!`时，则表示不匹配方括号中出现的其他字符中的任意一个。  
+`!(pattern|pattern|pattern)` 匹配任何与括号中给定的任一参数一致的都不匹配的。  
+`?(pattern|pattern|pattern)` 匹配括号中给定的任一参数0次或1次。  
+`+(pattern|pattern|pattern)` 匹配括号中给定的任一参数至少1次。  
+`*(a|b|c)` 匹配括号中给定的任一参数0次或多次。  
 `@(pattern|pat*|pat?erN)` 匹配括号中给定的任一参数1次。
 
-用实例来加深理解：
-`*` 能匹配 `a.js` , `x.y` , `abc , abc/`，但不能匹配 a/b.js
-`*.*` 能匹配 `a.js` , `style.css` , `a.b` , `x.y`
-`*/*/*.js` 能匹配 `a/b/c.js` , `x/y/z.js`，不能匹配 `a/b.js` , `a/b/c/d.js`
-`**` 能匹配 `abc` , `a/b.js` , `a/b/c.js` , `x/y/z` , `x/y/z/a.b`，能用来匹配所有的目录和文件
-`**/*.js` 能匹配 `foo.js` , `a/foo.js` , `a/b/foo.js` , `a/b/c/foo.js`
-`a/**/z` 能匹配 `a/z` , `a/b/z` , `a/b/c/z` , `a/d/g/h/j/k/z`
-`a/**b/z` 能匹配 `a/b/z , a/sb/z`，但不能匹配 `a/x/sb/z`，因为只有单`**`单独出现才能匹配多级目录
-`?.js` 能匹配 `a.js` , `b.js` , `c.js`
-`a??` 能匹配 `a.b` , `abc`，但不能匹配 `ab/`，因为它不会匹配路径分隔符
-`[xyz].js` 只能匹配 `x.js` , `y.js` , `z.js`，不会匹配 `xy.js` , `xyz.js` 等，整个中括号只代表一个字符
-`[^xyz].js` 能匹配 `a.js` , `b.js` , `c.js`等，不能匹配 `x.js` , `y.js` , `z.js`
+用实例来加深理解：  
+`*` 能匹配 `a.js` , `x.y` , `abc , abc/`，但不能匹配 a/b.js  
+`*.*` 能匹配 `a.js` , `style.css` , `a.b` , `x.y`  
+`*/*/*.js` 能匹配 `a/b/c.js` , `x/y/z.js`，不能匹配 `a/b.js` , `a/b/c/d.js`  
+`**` 能匹配 `abc` , `a/b.js` , `a/b/c.js` , `x/y/z` , `x/y/z/a.b`，能用来匹配所有的目录和文件  
+`**/*.js` 能匹配 `foo.js` , `a/foo.js` , `a/b/foo.js` , `a/b/c/foo.js`  
+`a/**/z` 能匹配 `a/z` , `a/b/z` , `a/b/c/z` , `a/d/g/h/j/k/z`  
+`a/**b/z` 能匹配 `a/b/z , a/sb/z`，但不能匹配 `a/x/sb/z`，因为只有单`**`单独出现才能匹配多级目录  
+`?.js` 能匹配 `a.js` , `b.js` , `c.js`  
+`a??` 能匹配 `a.b` , `abc`，但不能匹配 `ab/`，因为它不会匹配路径分隔符  
+`[xyz].js` 只能匹配 `x.js` , `y.js` , `z.js`，不会匹配 `xy.js` , `xyz.js` 等，整个中括号只代表一个字符  
+`[^xyz].js` 能匹配 `a.js` , `b.js` , `c.js`等，不能匹配 `x.js` , `y.js` , `z.js`  
 
 当有多种匹配模式时可以使用数组：
 ```js
@@ -509,16 +508,16 @@ gulp.src(['*.js','!b*.js']) // 匹配所有js文件，但排除掉以b开头的j
 gulp.src(['!b*.js',*.js]) // 不会排除任何文件，因为排除模式不能出现在数组的第一个元素中
 ```
 
-此外，还可以使用展开模式。展开模式以花括号作为定界符，根据它里面的内容，会展开为多个模式，最后匹配的结果为所有展开的模式相加起来得到的结果。展开的例子如下：
-`a{b,c}d` 会展开为 `abd,acd`
-`a{b,}c` 会展开为 `abc,ac`
-`a{0..3}d` 会展开为 `a0d`,`a1d`,`a2d`,`a3d`
-`a{b,c{d,e}f}g` 会展开为 `abg`,`acdfg`,`acefg`
-`a{b,c}d{e,f}g` 会展开为 `abdeg`,`acdeg`,`abdeg`,`abdfg`
+此外，还可以使用展开模式。展开模式以花括号作为定界符，根据它里面的内容，会展开为多个模式，最后匹配的结果为所有展开的模式相加起来得到的结果。展开的例子如下：  
+`a{b,c}d` 会展开为 `abd,acd`  
+`a{b,}c` 会展开为 `abc,ac`  
+`a{0..3}d` 会展开为 `a0d`,`a1d`,`a2d`,`a3d`  
+`a{b,c{d,e}f}g` 会展开为 `abg`,`acdfg`,`acefg`  
+`a{b,c}d{e,f}g` 会展开为 `abdeg`,`acdeg`,`abdeg`,`abdfg`  
 
 ### 6. 注意事项（Attention）
 
-* watch 的时候路径不要用 './path'，直接使用 '/path' 即可不然会导致新增文件无法被 watch。
+* watch 的时候路径不要用 './path'，直接使用 '/path' 即可，不然会导致新增文件无法被 watch。
 * gulp 对于 one after one 的任务链，需要加 return，比如 gulp clean
 
 参考资料：
@@ -528,3 +527,6 @@ gulp.src(['!b*.js',*.js]) // 不会排除任何文件，因为排除模式不能
 扩展资料：
 [Gulp API docs](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
 [gulp-cheatsheet](https://github.com/osscafe/gulp-cheatsheet)
+
+原文地址：
+[Gulp构建前端自动化工作流之：常用插件介绍及使用](http://www.bluesdream.com/blog/gulp-frontend-automation-plugins-instructions.html)
