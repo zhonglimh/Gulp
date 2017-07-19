@@ -182,7 +182,7 @@ gulp.task('default',['webserver','watch']);
 
 5.2.2 执行特定任务：
 
-`grunt webserver`
+`gulp webserver`
 
 看到如下提示说明执行成功：
 > [18:21:56] Using gulpfile D:\my-gulp\gulpfile.js
