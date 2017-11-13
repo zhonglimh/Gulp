@@ -52,7 +52,7 @@
 ```js
 gulp.task('html', function() {
   return gulp.src('src/**/*.html') // 指明源文件路径、并进行文件匹配
-    .pipe('dist'); // 输出路径
+    .pipe(gulp.dest('dist')); // 输出路径
 });
 ```
 
